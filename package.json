@@ -1,0 +1,32 @@
+{
+  "name": "agent",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node --test --experimental-strip-types extensions/*/*.test.ts",
+    "check": "tsc --noEmit",
+    "format": "prettier --write \"extensions/**/*.{ts,cjs}\" \"*.json\"",
+    "format:check": "prettier --check \"extensions/**/*.{ts,cjs}\" \"*.json\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kewin-y/pi-config.git"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/kewin-y/pi-config/issues"
+  },
+  "homepage": "https://github.com/kewin-y/pi-config#readme",
+  "private": true,
+  "dependencies": {
+    "@earendil-works/pi-ai": "0.80.7",
+    "@earendil-works/pi-coding-agent": "0.80.7",
+    "@earendil-works/pi-tui": "0.80.7",
+    "acorn": "^8.17.0",
+    "typebox": "^1.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "prettier": "^3.9.6",
+    "typescript": "^7.0.2"
+  }
+}
