@@ -22,9 +22,9 @@ export const SUBAGENT_SPAWN_PARAMETER_DESCRIPTIONS = {
   harness: 'Subagent harness. This setup supports only "pi".',
   workingDir: "Working directory (default: current working directory)",
   model:
-    'Pi model as "provider/model-id" or an unambiguous model id. Omit to inherit the current model.',
+    'Pi model as "provider/model-id" or an unambiguous model id. Omit to use the lightweight default, openai-codex/gpt-5.4-mini.',
   reasoningEffort:
-    "Pi thinking level. Omit to inherit the current thinking level.",
+    "Pi thinking level. Omit to use the default level, medium.",
 };
 
 /** Builds the subagent_spawn result that tells the parent model how to continue or inspect the child. */

@@ -3,7 +3,8 @@
  *
  * Tools (for the parent LLM):
  * - subagent_spawn: fire-and-forget spawn (prompt, title, working_dir, model,
- *   reasoning_effort). Max 4 running at once.
+ *   reasoning_effort). Unspecified model/effort use the lightweight defaults.
+ *   Max 4 running at once.
  * - subagent_wait: block until the listed subagents settle, return results.
  * - subagent_cancel: stop one or more running subagents.
  * - subagent_check: peek at a subagent's status and recent activity.
@@ -72,6 +73,10 @@ import { openSubagentPicker, openSubagentTakeover } from "./src/ui/takeover.ts";
 const SUBAGENT_OUTPUT_MAX_BYTES = 24 * 1024;
 const WAIT_OUTPUT_MAX_BYTES = 48 * 1024;
 const WAIT_PER_AGENT_MAX_BYTES = 16 * 1024;
+
+/** Defaults for lightweight work delegated from a stronger parent model. */
+const DEFAULT_SUBAGENT_MODEL = "openai-codex/gpt-5.4-mini";
+const DEFAULT_SUBAGENT_REASONING_EFFORT = "medium";
 
 interface BtwResultData {
   readonly id: string;
@@ -305,8 +310,9 @@ export default function (pi: ExtensionAPI) {
           prompt: params.prompt,
           title,
           cwd,
-          model: params.model,
-          reasoningEffort: params.reasoning_effort,
+          model: params.model ?? DEFAULT_SUBAGENT_MODEL,
+          reasoningEffort:
+            params.reasoning_effort ?? DEFAULT_SUBAGENT_REASONING_EFFORT,
           parent: {
             parentCwd: ctx.cwd,
             projectTrusted: resolveChildProjectTrust({
@@ -680,6 +686,8 @@ export default function (pi: ExtensionAPI) {
           prompt,
           title: deriveBtwTitle(prompt),
           cwd: ctx.cwd,
+          model: DEFAULT_SUBAGENT_MODEL,
+          reasoningEffort: DEFAULT_SUBAGENT_REASONING_EFFORT,
           parent: {
             parentCwd: ctx.cwd,
             projectTrusted: ctx.isProjectTrusted(),
